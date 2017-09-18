@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>MapIt</title>
+        <link rel="stylesheet" type="text/css" href="dcca_mapit.css">
+        <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="dcca_mapit.js"></script>
+    </head>
+
+    <body>
+    
+        <div id="header_container">
+            <img id="header_logo" src="copy-dcca-seal-logo.png">
+            <div id="header_title">Department of Commerce<br>& Consumer Affairs</div>
+            <h1>DCCA MapIt Broadband Speed Test</h1>
+        </div>
+        
+        <br>
+        
+        <div>
+            <button id="speed_test_button" onclick="getResults()">START</button>
+        </div>
+        <div id= "table_1"></div>
+        <table id="output_table">
+            <tr>
+                <td>connection type</td>
+                <td>Type</td>
+            </tr>
+            <tr>
+                <td>Service Provider:</td>
+                <td>Provider</td>
+            </tr>
+                <td>IP Address:</td>
+                <td>Address</td>
+            <tr>
+                <td>User ID:</td>
+                <td>Identification #</td>
+            </tr>
+                <td>Download Speed</td>
+                <td>Speed 1</td>
+            <tr>
+                <td>Upload Speed</td>
+                <td>Speed 2</td>
+            </tr>
+        </table>
+        
+        <br><br>
+        
+        <div id="speed_bars">
+            
+            <div class="bars" id="your_download_speed">
+                <div class="zippers">|</div>
+                Download Speed
+            </div>
+        
+        <br><br>
+        
+            <div class="bars">
+                <div class="zippers">|</div>
+                Hawaii Average
+            </div>
+            
+            <br><br><br>
+            
+            <div class="bars">
+                <div class="zippers">|</div>
+                Upload Speed
+            </div>
+            
+            <br><br>
+            
+            <div class="bars">
+                <div class="zippers">|</div>
+                Upload Speed
+            </div>
+            
+        </div>
+        
+    </body>
+    
+</html>
