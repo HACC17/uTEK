@@ -88,7 +88,7 @@ function getResults(){
 		};
 	};
 
-	var url = "../return_result_api.php?rid=451"
+	var url = "return_result_api.php?rid=451"
 	ajaxRequest.open("GET", url, true);
 	ajaxRequest.send(null);
 
