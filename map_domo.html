@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--<meta charset="utf-8">-->
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Get started with MapView - Create a 2D map</title>
+<style>
+  html, body, #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<link rel="stylesheet" href="https://js.arcgis.com/4.4/esri/css/main.css">
+<script src="https://js.arcgis.com/4.4/"></script>
+<script>
+require([
+  "esri/Map",
+  "esri/views/MapView",
+  "esri/Graphic",
+  "esri/geometry/Multipoint",
+  "esri/geometry/Point",
+  "esri/symbols/SimpleMarkerSymbol",
+  "dojo/domReady!"
+], function(Map, MapView,Graphic,Multipoint,Point,SimpleMarkerSymbol){
+  var map = new Map({
+    basemap: "streets"
+  });
+  var view = new MapView({
+    container: "viewDiv",  // Reference to the scene div created in step 5
+    map: map,  // Reference to the map object created before the scene
+    zoom: 5,  // Sets zoom level based on level of detail (LOD)
+    center: [-158.6290011, 20.4563893]  // Sets center point of view using longitude,latitude
+  });
+  var mp =new Multipoint({});
+  mp.points = [[-157.92505,21.64797]];
+  var markerSymbol = new SimpleMarkerSymbol({
+        color: [255, 255, 255],
+        outline: { // autocasts as new SimpleLineSymbol()
+          color: [0, 0, 0],
+          width: 0.5
+        }
+  });
+  var point=[];
+  var pointGraphic =[];
+  var longitude = [];
+  var latitude=[];
+  var rid=[];
+  var length;
+  var point=getPoints();
+</script>
+<?php 
+    echo "for(i = 0; i < length; i++)
+ //for (i in getpoints) 
+ {
+    point[i] = new Point({
+        longitude: longitude[i],
+        latitude: latitude[i],
+    });
+    
+    //console.log(getpoints[i].longitude +" abc");
+    /*var lineAtt = {
+        Name: "Keystone Pipeline",
+        Owner: "TransCanada",
+        Length: "3,456 km"
+    };*/
+  
+    pointGraphic[i] = new Graphic({
+        geometry: point[i],
+        symbol: markerSymbol,
+        //attributes: lineAtt,
+        popupTemplate: {
+        }
+    });
+ }";
+?>
+/*
+ for(i = 0; i < length; i++)
+ //for (i in getpoints) 
+ {
+    point[i] = new Point({
+        longitude: longitude[i],
+        latitude: latitude[i],
+    });
+    
+    //console.log(getpoints[i].longitude +" abc");
+    /*var lineAtt = {
+        Name: "Keystone Pipeline",
+        Owner: "TransCanada",
+        Length: "3,456 km"
+    };*/
+  
+    pointGraphic[i] = new Graphic({
+        geometry: point[i],
+        symbol: markerSymbol,
+        //attributes: lineAtt,
+        popupTemplate: {
+        }
+    });
+ }*/
+ <script>
+  view.graphics.addMany(pointGraphic);
+});
+
+function getPoints(){
+
+  var ajaxRequest;
+  var obj
+	// Code for AXAX request on different browsers
+	try{ajaxRequest = new XMLHttpRequest();}
+	catch (e)
+	{
+		try{ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");}
+
+		catch (e)
+		{
+			try{ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");}
+
+			catch (e){alert("Your browser does not support ajax."); return false;}
+		}
+	};
+
+	// Wait for readyState == 4
+    
+	ajaxRequest.onreadystatechange = function(){
+
+		if(ajaxRequest.readyState == 4 && ajaxRequest.status == 200){
+
+			var jsonReturn=ajaxRequest.responseText;
+            var result=[];
+			obj = JSON.parse(jsonReturn);
+			length = obj.rid.length;
+            for(i = 0; i < length; i++){
+                result[i]= {rid:obj.rid[i], longitude:obj.longitude[i], latitude:obj.latitude[i]};
+                /*longitude[i]=obj.longitude[i];
+                latitude[i]=obj.latitude[i];
+                rid[i]=obj.rid[i];*/
+            }
+            alert(result);
+            return result;
+            
+		};
+	};
+	var url="http://tonghoutse.com/hacc/testresult.php";
+	ajaxRequest.open("GET", url, true);
+	ajaxRequest.send(null);
+};
+</script>
+</head>
+<body onload="getPoints()">
+  <div id="viewDiv"></div>
+</body>
+</html>
