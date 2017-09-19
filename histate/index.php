@@ -58,6 +58,7 @@ require([
     $ds =[];
     $us =[];
     $ISP =[];
+    $date = [];
     
     $sqlTable = mysql_query($sqlSelect, $conn) or die("Couldn't perform query $sqlSelect (".__LINE__."): " . mysql_error() . '.');
     while($sqlRecord = mysql_fetch_assoc($sqlTable)) {
@@ -67,6 +68,7 @@ require([
         array_push($ds,$sqlRecord['download_speed']);
         array_push($us,$sqlRecord['upload_speed']);
         array_push($ISP,$sqlRecord['ISP']);
+        array_push($date,$sqlRecord['date']);
     }
     $arrlength = count($rid);
     for ($i = 0; $i<$arrlength; $i++) {
@@ -84,10 +86,13 @@ require([
         ";
         echo "lineAtt = {rid: ";
         echo $rid[$i];
-        echo ',downloadSpeed:';
+        echo ',downloadSpeed: ';
         echo $ds[$i];
         echo ',';
-        echo 'uploadSpeed:';
+        echo 'date: "';
+        echo $date[$i];
+        echo '",';
+        echo 'uploadSpeed: ';
         echo $us[$i];
         echo ',Provider: "';
         echo $ISP[$i];
@@ -112,7 +117,7 @@ require([
         echo $i;
         echo "],attributes: lineAtt,
                 popupTemplate: {";
-        echo 'title: "{rid}", content: [{type: "fields", fieldInfos: [{fieldName: "rid"},{fieldName: "Provider"}, {fieldName: "downloadSpeed"}, {fieldName: "uploadSpeed"}]}]';        
+        echo 'title: "{rid}", content: [{type: "fields", fieldInfos: [{fieldName: "rid"},{fieldName: "date"}, {fieldName: "Provider"}, {fieldName: "downloadSpeed"}, {fieldName: "uploadSpeed"}]}]';        
         echo "}";
         echo "});";
         echo "//
