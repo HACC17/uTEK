@@ -6,9 +6,32 @@
     <head>
         <meta charset="utf-8">
         <title>MapIt</title>
-        <link rel="stylesheet" type="text/css" href="dcca_mapit.css">
-        <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="dcca_mapit.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/dcca_mapit.css">
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/dcca_mapit.js"></script>
+        <script>
+        function getAvgSpeed(rid){
+            var xhttp;
+            if (window.XMLHttpRequest) {
+            // code for modern browsers
+            xhttp = new XMLHttpRequest();
+            } else {
+            // code for IE6, IE5
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonReturn = xhttp.responseText;
+                    var obj = JSON.parse(jsonReturn);
+                }
+            };
+        var id = rid;
+        var url = "hacc/return_result_api.php";
+        var para = "?rid="+id;
+        xhttp.open("GET", url+para, true);
+        xhttp.send();
+        }
+        </script>
     </head>
 
     <body>
@@ -24,9 +47,8 @@
         <div>
             <button id="speed_test_button" onclick="getResults()">START</button>
         </div>
-        <div id= "table_1"></div>
         <table id="output_table">
-            <tr>
+            <!--<tr>
                 <td>connection type</td>
                 <td>Type</td>
             </tr>
@@ -45,7 +67,7 @@
             <tr>
                 <td>Upload Speed</td>
                 <td>Speed 2</td>
-            </tr>
+            </tr>-->
         </table>
         
         <br><br>
@@ -77,7 +99,9 @@
                 <div class="zippers">|</div>
                 Upload Speed
             </div>
+            <br><br><br>
             
+            <button class="main_menu_buttons" onclick="back_to_main()">Main Menu</button>
         </div>
         
     </body>
